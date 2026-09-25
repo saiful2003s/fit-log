@@ -1,13 +1,14 @@
-import Banner from "@/components/banner/Banner";
-import Navbar from "@/components/navbar/Navbar";
+import Banner from "@/src/app/components/HomePage/Banner";
+import Groups from "./components/HomePage/Library";
 // import Image from "next/image";
 
 export default function Home() {
   return (
       <>
+
       
-      <Navbar />
       <Banner />
+      <Groups />
       
       </>
   );

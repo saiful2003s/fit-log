@@ -3,7 +3,7 @@ import React from 'react';
 
 const Navbar = () => {
     return (
-        <div className=" bg-base-100 shadow-sm">
+        <div className=" bg-base-100 shadow-md px-2">
 
             <nav className='container navbar mx-auto px-4 py-2 sticky top-0 z-50'>
                 <div className="navbar-start">
