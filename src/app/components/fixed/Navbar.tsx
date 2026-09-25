@@ -3,9 +3,9 @@ import React from 'react';
 
 const Navbar = () => {
     return (
-        <div className=" bg-base-100 shadow-md px-2">
+        <div className=" bg-base-100 shadow-md px-2 sticky top-0 z-50">
 
-            <nav className='container navbar mx-auto px-4 py-2 sticky top-0 z-50'>
+            <nav className='container navbar mx-auto px-4 py-2 '>
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -21,7 +21,6 @@ const Navbar = () => {
                     <div className='flex justify-center gap-2'>
                         <Image src='/logo.png' alt='logo' width={32} height={32} />
                         <span className="text-xl font-bold tracking-wide"> FITLOG </span>
-
                     </div>
                 </div>
                 <div className="navbar-center hidden lg:flex">
