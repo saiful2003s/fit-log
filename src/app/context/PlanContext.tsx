@@ -22,7 +22,7 @@ interface PlanContextType {
     toggleDone: (id: number) => void;
 }
 
-const PlanContext = createContext<PlanContextType | undefined>(
+const PlanContext = createContext <PlanContextType | undefined>(
     undefined
 );
 

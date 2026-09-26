@@ -4,12 +4,14 @@ import Image from 'next/image';
 import { useState } from 'react';
 import {
     FaCheck,
-    FaTrash,
     FaClock,
     FaFire,
+    FaStar,
 } from 'react-icons/fa';
 
 import { usePlan } from '../context/PlanContext';
+import Link from 'next/link';
+import { FaXmark } from 'react-icons/fa6';
 
 const MyPlan = () => {
     const [activeTab, setActiveTab] = useState<'plan' | 'saved'>(
@@ -26,13 +28,11 @@ const MyPlan = () => {
 
     const totalMinutes = plan.reduce(
         (total, item) => total + item.duration,
-        0
-    );
+        0);
 
     const totalCalories = plan.reduce(
         (total, item) => total + item.caloriesBurned,
-        0
-    );
+        0);
 
     const activeItems =
         activeTab === 'plan' ? plan : saved;
@@ -42,29 +42,29 @@ const MyPlan = () => {
 
             <div className="mb-8">
                 <h1 className="text-3xl font-bold">
-                    My Plan
+                    MY PLAN
                 </h1>
 
                 <p className="mt-2 text-gray-500">
-                    Manage your workouts and saved exercises.
+                    Cap of five lifts for today. Finish them, then load more.
                 </p>
             </div>
 
-            <div className="grid grid-cols-3 gap-4 mb-8">
+            <div className="flex justify-between rounded-xl border border-gray-700 bg-base-300/40 p-5 mb-8">
 
-                <div className="rounded-xl border border-gray-700 bg-base-300/40 p-5">
+                <div className=" p-5">
                     <p className="text-sm text-gray-500">
                         Exercises
                     </p>
 
-                    <p className="mt-2 text-3xl font-bold">
+                    <p className="mt-2 text-3xl font-bold text-[#C2F800]">
                         {plan.length}
                     </p>
                 </div>
 
-                <div className="rounded-xl border border-gray-700 bg-base-300/40 p-5">
+                <div className=" p-5">
                     <p className="text-sm text-gray-500">
-                        Total Minutes
+                        Minutes
                     </p>
 
                     <p className="mt-2 text-3xl font-bold">
@@ -72,9 +72,9 @@ const MyPlan = () => {
                     </p>
                 </div>
 
-                <div className="rounded-xl border border-gray-700 bg-base-300/40 p-5">
+                <div className="p-5">
                     <p className="text-sm text-gray-500">
-                        Total Calories
+                        Calories
                     </p>
 
                     <p className="mt-2 text-3xl font-bold">
@@ -91,22 +91,20 @@ const MyPlan = () => {
 
                     <button
                         onClick={() => setActiveTab('plan')}
-                        className={`pb-3 font-semibold ${
-                            activeTab === 'plan'
-                                ? 'border-b-2 border-[#C2F800] text-[#C2F800]'
-                                : 'text-gray-500'
-                        }`}
+                        className={`pb-3 font-semibold ${activeTab === 'plan'
+                            ? 'border-b-2 border-[#C2F800] text-[#C2F800]'
+                            : 'text-gray-500'
+                            }`}
                     >
                         Plan ({plan.length})
                     </button>
 
                     <button
                         onClick={() => setActiveTab('saved')}
-                        className={`pb-3 font-semibold ${
-                            activeTab === 'saved'
-                                ? 'border-b-2 border-[#C2F800] text-[#C2F800]'
-                                : 'text-gray-500'
-                        }`}
+                        className={`pb-3 font-semibold ${activeTab === 'saved'
+                            ? 'border-b-2 border-[#C2F800] text-[#C2F800]'
+                            : 'text-gray-500'
+                            }`}
                     >
                         Saved ({saved.length})
                     </button>
@@ -121,16 +119,15 @@ const MyPlan = () => {
 
                     <div className="rounded-xl border border-gray-700 bg-base-300/40 py-16 text-center">
                         <h2 className="text-xl font-semibold">
-                            {activeTab === 'plan'
-                                ? 'Your plan is empty'
-                                : 'No saved exercises'}
+                            NOTHING HERE YET
                         </h2>
 
                         <p className="mt-2 text-sm text-gray-500">
-                            {activeTab === 'plan'
-                                ? "Add exercises from the library."
-                                : "Save exercises to find them here later."}
+                            Browse the library and add a lift to get today moving.
                         </p>
+                        <Link href="/" className="bg-[#C2F800] text-black mt-4 inline-block rounded-lg px-6 py-2 font-semibold">
+                            Go to workouts
+                        </Link>
                     </div>
 
                 ) : (
@@ -139,14 +136,12 @@ const MyPlan = () => {
 
                         <div
                             key={group.id}
-                            className={`flex overflow-hidden rounded-xl border border-gray-700 bg-base-300/40 ${
-                                group.isDone
-                                    ? 'opacity-60'
-                                    : ''
-                            }`}
+                            className={`flex overflow-hidden rounded-xl border border-gray-700 bg-base-300/40 ${group.isDone
+                                ? 'opacity-60'
+                                : ''
+                                }`}
                         >
 
-                            {/* Image */}
                             <Image
                                 src={group.image}
                                 alt={group.name}
@@ -159,51 +154,48 @@ const MyPlan = () => {
 
                                 <div>
 
-                                    <div className="flex gap-2 mb-2">
-                                        {group.muscleGroups.map(
-                                            (
-                                                muscle: string,
-                                                index: number
-                                            ) => (
-                                                <span
-                                                    key={index}
-                                                    className="rounded-full bg-[#C2F800] px-2 py-1 text-[9px] font-bold uppercase text-black"
-                                                >
-                                                    {muscle}
-                                                </span>
-                                            )
-                                        )}
-                                    </div>
-
                                     <h2
-                                        className={`text-xl font-bold ${
-                                            group.isDone
-                                                ? 'line-through'
-                                                : ''
-                                        }`}
+                                        className={` text-xl font-bold ${group.isDone
+                                            ? 'line-through'
+                                            : ''
+                                            }`}
                                     >
                                         {group.name}
                                     </h2>
 
+                                    <p className="mb-2 text-sm text-gray-500">
+                                        {group.equipment}
+                                    </p>
+
                                     <div className="mt-3 flex gap-5 text-sm text-gray-500">
 
                                         <span className="flex items-center gap-2">
-                                            <FaClock />
+                                            <FaClock className="text-yellow-400" />
                                             {group.duration} min
                                         </span>
 
                                         <span className="flex items-center gap-2">
-                                            <FaFire />
+                                            <FaFire className="text-yellow-400"/>
                                             {group.caloriesBurned} kcal
+                                        </span>
+
+                                        <span className="flex items-center gap-2">
+                                            <FaStar className="text-yellow-400" />
+                                            {group.rating}
                                         </span>
 
                                     </div>
 
                                 </div>
 
-                                {/* Actions */}
                                 <div className="flex items-center gap-3">
 
+                                    <Link
+                                href="/"
+                                className="btn rounded-2xl border-olive-600"
+                            >
+                                View Details
+                            </Link>
                                     {activeTab === 'plan' && (
                                         <button
                                             onClick={() =>
@@ -225,15 +217,15 @@ const MyPlan = () => {
                                         onClick={() =>
                                             activeTab === 'plan'
                                                 ? removeFromPlan(
-                                                      group.id
-                                                  )
+                                                    group.id
+                                                )
                                                 : removeFromSaved(
-                                                      group.id
-                                                  )
+                                                    group.id
+                                                )
                                         }
                                         className="btn btn-sm btn-ghost text-red-400"
                                     >
-                                        <FaTrash />
+                                        <FaXmark />
                                     </button>
 
                                 </div>
