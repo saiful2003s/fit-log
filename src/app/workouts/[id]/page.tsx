@@ -1,6 +1,7 @@
 
 import Image from 'next/image';
-import { FaCalendarPlus, FaRegBookmark } from "react-icons/fa";
+import WorkoutActions from '@/src/app/components/fixed/WorkoutActions';
+import { IgroupsCard } from '@/type/type';
 
 const getGroupDetails = async (id: string) => {
     const response = await fetch(
@@ -132,10 +133,7 @@ const GroupDetails = async ({
                         )}
                     </ol>
 
-                    <div className="mt-6 flex gap-4">
-                        <button className="btn bg-[#CCFF00] text-black rounded-lg"> <FaCalendarPlus className="text-base" /> Add to today's plan</button>
-                        <button className="btn btn-outline border-gray-400"> <FaRegBookmark className="text-base" /> Save for later</button>
-                    </div>
+                    <WorkoutActions group={group} />
 
                 </div>
 

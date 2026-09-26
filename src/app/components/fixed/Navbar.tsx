@@ -1,13 +1,16 @@
 'use client';
 
+import { usePlan } from '../../context/PlanContext';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { usePathname } from 'next/navigation';
 
+
+
 const Navbar = () => {
     const path = usePathname();
-
+    const { plan , saved} = usePlan();
     return (
         <div className="bg-base-100 shadow-md px-2 sticky top-0 z-50">
 
@@ -125,7 +128,7 @@ const Navbar = () => {
                     >
                         Plan
                         <span className="badge bg-[#C2F800] text-black rounded-full w-6 h-6 p-0 flex items-center justify-center">
-                            0
+                            {plan.length}
                         </span>
                     </Link>
 
@@ -135,7 +138,7 @@ const Navbar = () => {
                     >
                         Saved
                         <span className="badge bg-transparent border border-gray-400 text-white rounded-full w-6 h-6 p-0 flex items-center justify-center">
-                            0
+                            {saved.length}
                         </span>
                     </Link>
 
