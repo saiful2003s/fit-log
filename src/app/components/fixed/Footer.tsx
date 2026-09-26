@@ -3,7 +3,7 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <section className='px-6 bg-[#090A0D]'>
+        <section className='px-6 py-3 bg-[#0d0e10]'>
             <div className='flex justify-between items-center shadow-md px-2 py-4 container mx-auto'>
             <div className='flex justify-center gap-2'>
                 <Image src='/footerLogo.png' alt='Footer logo' width={20} height={20} />
