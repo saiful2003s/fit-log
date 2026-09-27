@@ -5,7 +5,7 @@ import { IgroupsCard } from '@/type/type';
 
 const getGroupDetails = async (id: string) => {
     const response = await fetch(
-        'https://api.abcz.workers.dev/api/fitlog'
+        'https://api.api-store.workers.dev/api/fitlog'
     );
 
     if (!response.ok) {

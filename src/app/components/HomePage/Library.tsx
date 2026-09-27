@@ -7,7 +7,7 @@ import { FaStar, FaClock, FaFire } from 'react-icons/fa';
 
 const getGroups = async () => {
     const response = await fetch(
-        'https://api.abcz.workers.dev/api/fitlog'
+        'https://api.api-store.workers.dev/api/fitlog'
     );
 
     const data = await response.json();

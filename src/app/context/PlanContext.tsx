@@ -7,7 +7,7 @@ import React, {
     useState,
 } from 'react';
 
-import { IgroupsCard } from '@/type/type';
+import type { IgroupsCard } from '@/type/type';
 
 interface PlanContextType {
     plan: IgroupsCard[];
@@ -22,37 +22,54 @@ interface PlanContextType {
     toggleDone: (id: number) => void;
 }
 
-const PlanContext = createContext <PlanContextType | undefined>(
+const PlanContext = createContext<PlanContextType | undefined>(
     undefined
 );
+
+const getStoredData = (key: string): IgroupsCard[] => {
+    if (typeof window === 'undefined') {
+        return [];
+    }
+
+    try {
+        const data = localStorage.getItem(key);
+
+        if (!data) {
+            return [];
+        }
+
+        return JSON.parse(data);
+    } catch {
+        localStorage.removeItem(key);
+        return [];
+    }
+};
 
 export const PlanProvider = ({
     children,
 }: {
     children: React.ReactNode;
 }) => {
-    const [plan, setPlan] = useState<IgroupsCard[]>([]);
-    const [saved, setSaved] = useState<IgroupsCard[]>([]);
+    const [plan, setPlan] = useState<IgroupsCard[]>(() =>
+        getStoredData('fitlog-plan')
+    );
+
+    const [saved, setSaved] = useState<IgroupsCard[]>(() =>
+        getStoredData('fitlog-saved')
+    );
 
     useEffect(() => {
-        const savedPlan = localStorage.getItem('fitlog-plan');
-        const savedItems = localStorage.getItem('fitlog-saved');
-
-        if (savedPlan) {
-            setPlan(JSON.parse(savedPlan));
-        }
-
-        if (savedItems) {
-            setSaved(JSON.parse(savedItems));
-        }
-    }, []);
-
-    useEffect(() => {
-        localStorage.setItem('fitlog-plan', JSON.stringify(plan));
+        localStorage.setItem(
+            'fitlog-plan',
+            JSON.stringify(plan)
+        );
     }, [plan]);
 
     useEffect(() => {
-        localStorage.setItem('fitlog-saved', JSON.stringify(saved));
+        localStorage.setItem(
+            'fitlog-saved',
+            JSON.stringify(saved)
+        );
     }, [saved]);
 
     const addToPlan = (group: IgroupsCard) => {
@@ -65,7 +82,13 @@ export const PlanProvider = ({
                 return current;
             }
 
-            return [...current, group];
+            return [
+                ...current,
+                {
+                    ...group,
+                    isDone: false,
+                },
+            ];
         });
     };
 
@@ -99,7 +122,10 @@ export const PlanProvider = ({
         setPlan((current) =>
             current.map((item) =>
                 item.id === id
-                    ? { ...item, isDone: !item.isDone }
+                    ? {
+                          ...item,
+                          isDone: !item.isDone,
+                      }
                     : item
             )
         );
