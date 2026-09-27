@@ -11,7 +11,7 @@ import {
     FaStar,
 } from 'react-icons/fa';
 import { FaXmark } from 'react-icons/fa6';
-
+import { toast } from 'react-toastify';
 import { usePlan } from '../context/PlanContext';
 
 const MyPlan = () => {
@@ -118,11 +118,10 @@ const MyPlan = () => {
                     <button
                         role="tab"
                         onClick={() => setActiveTab('plan')}
-                        className={`tab ${
-                            activeTab === 'plan'
-                                ? 'tab-active text-[#C2F800]'
-                                : ''
-                        }`}
+                        className={`tab ${activeTab === 'plan'
+                            ? 'tab-active text-[#C2F800]'
+                            : ''
+                            }`}
                     >
                         Plan ({plan.length})
                     </button>
@@ -130,11 +129,10 @@ const MyPlan = () => {
                     <button
                         role="tab"
                         onClick={() => setActiveTab('saved')}
-                        className={`tab ${
-                            activeTab === 'saved'
-                                ? 'tab-active text-[#C2F800]'
-                                : ''
-                        }`}
+                        className={`tab ${activeTab === 'saved'
+                            ? 'tab-active text-[#C2F800]'
+                            : ''
+                            }`}
                     >
                         Saved ({saved.length})
                     </button>
@@ -158,9 +156,9 @@ const MyPlan = () => {
                         onChange={(e) =>
                             setSortBy(
                                 e.target.value as
-                                    | 'duration'
-                                    | 'calories'
-                                    | 'rating'
+                                | 'duration'
+                                | 'calories'
+                                | 'rating'
                             )
                         }
                         className="select select-sm border-gray-700 bg-base-300 pr-8"
@@ -213,11 +211,10 @@ const MyPlan = () => {
 
                         <div
                             key={group.id}
-                            className={`flex overflow-hidden rounded-xl border border-gray-700 bg-base-300/40 ${
-                                group.isDone
-                                    ? 'opacity-60'
-                                    : ''
-                            }`}
+                            className={`flex overflow-hidden rounded-xl border border-gray-700 bg-base-300/40 ${group.isDone
+                                ? 'opacity-60'
+                                : ''
+                                }`}
                         >
 
                             {/* Image */}
@@ -236,11 +233,10 @@ const MyPlan = () => {
                                 <div>
 
                                     <h2
-                                        className={`text-xl font-bold ${
-                                            group.isDone
-                                                ? 'line-through'
-                                                : ''
-                                        }`}
+                                        className={`text-xl font-bold ${group.isDone
+                                            ? 'line-through'
+                                            : ''
+                                            }`}
                                     >
                                         {group.name}
                                     </h2>
@@ -286,9 +282,10 @@ const MyPlan = () => {
                                     {activeTab === 'plan' && (
 
                                         <button
-                                            onClick={() =>
-                                                toggleDone(group.id)
-                                            }
+                                            onClick={() => {
+                                                toggleDone(group.id);
+                                                toast.success(`marked as done`);
+                                            }}
                                             className="btn btn-sm border-none bg-[#C2F800] text-black"
                                         >
                                             <FaCheck />
@@ -302,11 +299,15 @@ const MyPlan = () => {
 
 
                                     <button
-                                        onClick={() =>
-                                            activeTab === 'plan'
-                                                ? removeFromPlan(group.id)
-                                                : removeFromSaved(group.id)
-                                        }
+                                        onClick={() => {
+                                            if (activeTab === 'plan') {
+                                                removeFromPlan(group.id);
+                                                toast.success(`removed from plan`);
+                                            } else {
+                                                removeFromSaved(group.id);
+                                                toast.success(`removed from saved`);
+                                            }
+                                        }}
                                         className="btn btn-sm btn-ghost text-red-400"
                                     >
                                         <FaXmark />

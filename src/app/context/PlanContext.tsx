@@ -73,6 +73,8 @@ export const PlanProvider = ({
     }, [saved]);
 
     const addToPlan = (group: IgroupsCard) => {
+        let added = false;
+
         setPlan((current) => {
             const alreadyExists = current.some(
                 (item) => item.id === group.id
@@ -82,17 +84,16 @@ export const PlanProvider = ({
                 return current;
             }
 
-            return [
-                ...current,
-                {
-                    ...group,
-                    isDone: false,
-                },
-            ];
+            added = true;
+            return [...current, group];
         });
+
+        return added;
     };
 
     const addToSaved = (group: IgroupsCard) => {
+        let added = false;
+
         setSaved((current) => {
             const alreadyExists = current.some(
                 (item) => item.id === group.id
@@ -102,8 +103,11 @@ export const PlanProvider = ({
                 return current;
             }
 
+            added = true;
             return [...current, group];
         });
+
+        return added;
     };
 
     const removeFromPlan = (id: number) => {
@@ -123,9 +127,9 @@ export const PlanProvider = ({
             current.map((item) =>
                 item.id === id
                     ? {
-                          ...item,
-                          isDone: !item.isDone,
-                      }
+                        ...item,
+                        isDone: !item.isDone,
+                    }
                     : item
             )
         );

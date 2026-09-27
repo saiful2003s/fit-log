@@ -19,7 +19,7 @@ const Groups = async () => {
     const groupsData = await getGroups();
 
     return (
-        <section className="mx-6 my-8">
+        <section id='Library' className="mx-6 my-8">
             <div className="container mx-auto">
 
                 <div className="mb-6">
