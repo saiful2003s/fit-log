@@ -59,8 +59,7 @@ const MyPlan = () => {
     return (
         <main className="container mx-auto px-6 py-10">
 
-            {/* Header */}
-            <div className="mb-8">
+            <div className="mb-8 text-center sm:text-left">
                 <h1 className="text-3xl font-bold">
                     MY PLAN
                 </h1>
@@ -70,9 +69,7 @@ const MyPlan = () => {
                 </p>
             </div>
 
-
-            {/* Summary */}
-            <div className="mb-8 flex justify-between rounded-xl border border-gray-700 bg-base-300/40 p-5">
+            <div className="mb-8 text-center sm:text-left sm:flex sm:justify-between rounded-xl border border-gray-700 bg-base-300/40 p-5">
 
                 <div className="p-5">
                     <p className="text-sm text-gray-500">
@@ -107,7 +104,6 @@ const MyPlan = () => {
             </div>
 
 
-            {/* Tabs */}
             <div className="mb-6">
 
                 <div
@@ -141,8 +137,6 @@ const MyPlan = () => {
 
             </div>
 
-
-            {/* Sort By */}
             <div className="mb-6 flex items-center justify-end gap-3">
 
                 <span className="text-sm text-gray-500">
@@ -180,8 +174,6 @@ const MyPlan = () => {
 
             </div>
 
-
-            {/* Cards */}
             <div className="space-y-4">
 
                 {activeItems.length === 0 ? (
@@ -211,107 +203,105 @@ const MyPlan = () => {
 
                         <div
                             key={group.id}
-                            className={`flex overflow-hidden rounded-xl border border-gray-700 bg-base-300/40 ${group.isDone
-                                ? 'opacity-60'
-                                : ''
+                            className={`overflow-hidden rounded-xl border border-gray-700 bg-base-300/40 ${group.isDone ? 'opacity-60' : ''
                                 }`}
                         >
 
-                            {/* Image */}
-                            <Image
-                                src={group.image}
-                                alt={group.name}
-                                width={220}
-                                height={150}
-                                className="h-40 w-56 object-cover"
-                            />
+                            <div className="flex flex-col lg:flex-row">
 
+                                <Image
+                                    src={group.image}
+                                    alt={group.name}
+                                    width={220}
+                                    height={150}
+                                    className="h-48 w-full object-cover sm:h-52 lg:h-40 lg:w-56"
+                                />
 
-                            {/* Content */}
-                            <div className="flex flex-1 justify-between p-5">
+                                <div className="flex flex-col gap-5 p-5 lg:flex-1 lg:flex-row lg:justify-between">
 
-                                <div>
+                                    <div>
 
-                                    <h2
-                                        className={`text-xl font-bold ${group.isDone
-                                            ? 'line-through'
-                                            : ''
-                                            }`}
-                                    >
-                                        {group.name}
-                                    </h2>
+                                        <h2
+                                            className={`text-xl font-bold ${group.isDone
+                                                    ? 'line-through'
+                                                    : ''
+                                                }`}
+                                        >
+                                            {group.name}
+                                        </h2>
 
-                                    <p className="mb-2 text-sm text-gray-500">
-                                        {group.equipment}
-                                    </p>
+                                        <p className="mb-2 text-sm text-gray-500">
+                                            {group.equipment}
+                                        </p>
 
+                                        <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm text-gray-500">
 
-                                    <div className="mt-3 flex gap-5 text-sm text-gray-500">
+                                            <span className="flex items-center gap-2">
+                                                <FaClock className="text-yellow-400" />
+                                                {group.duration} min
+                                            </span>
 
-                                        <span className="flex items-center gap-2">
-                                            <FaClock className="text-yellow-400" />
-                                            {group.duration} min
-                                        </span>
+                                            <span className="flex items-center gap-2">
+                                                <FaFire className="text-yellow-400" />
+                                                {group.caloriesBurned} kcal
+                                            </span>
 
-                                        <span className="flex items-center gap-2">
-                                            <FaFire className="text-yellow-400" />
-                                            {group.caloriesBurned} kcal
-                                        </span>
+                                            <span className="flex items-center gap-2">
+                                                <FaStar className="text-yellow-400" />
+                                                {group.rating}
+                                            </span>
 
-                                        <span className="flex items-center gap-2">
-                                            <FaStar className="text-yellow-400" />
-                                            {group.rating}
-                                        </span>
+                                        </div>
 
                                     </div>
 
-                                </div>
+                                    <div className="flex flex-wrap items-center gap-3 lg:mt-0">
 
+                                        <Link
+                                            href={`/workouts/${group.id}`}
+                                            className="btn rounded-2xl border border-gray-600 bg-transparent"
+                                        >
+                                            View Details
+                                        </Link>
 
-                                {/* Actions */}
-                                <div className="flex items-center gap-3">
+                                        {activeTab === 'plan' && (
 
-                                    <Link
-                                        href={`/workouts/${group.id}`}
-                                        className="btn rounded-2xl border border-gray-600 bg-transparent"
-                                    >
-                                        View Details
-                                    </Link>
+                                            <button
+                                                onClick={() => {
+                                                    toggleDone(group.id);
+                                                    toast.success('Marked as done');
+                                                }}
+                                                className="btn btn-sm border-none bg-[#C2F800] text-black"
+                                            >
+                                                <FaCheck />
 
+                                                {group.isDone
+                                                    ? 'Done'
+                                                    : 'Mark as done'}
+                                            </button>
 
-                                    {activeTab === 'plan' && (
+                                        )}
 
                                         <button
                                             onClick={() => {
-                                                toggleDone(group.id);
-                                                toast.success(`marked as done`);
+                                                if (activeTab === 'plan') {
+                                                    removeFromPlan(group.id);
+                                                    toast.success(
+                                                        'Removed from plan'
+                                                    );
+                                                } else {
+                                                    removeFromSaved(group.id);
+                                                    toast.success(
+                                                        'Removed from saved'
+                                                    );
+                                                }
                                             }}
-                                            className="btn btn-sm border-none bg-[#C2F800] text-black"
+                                            className="btn btn-sm btn-ghost text-red-400"
                                         >
-                                            <FaCheck />
-
-                                            {group.isDone
-                                                ? 'Done'
-                                                : 'Mark as done'}
+                                            <FaXmark />
                                         </button>
 
-                                    )}
-
-
-                                    <button
-                                        onClick={() => {
-                                            if (activeTab === 'plan') {
-                                                removeFromPlan(group.id);
-                                                toast.success(`removed from plan`);
-                                            } else {
-                                                removeFromSaved(group.id);
-                                                toast.success(`removed from saved`);
-                                            }
-                                        }}
-                                        className="btn btn-sm btn-ghost text-red-400"
-                                    >
-                                        <FaXmark />
-                                    </button>
+                                    </div>
 
                                 </div>
 

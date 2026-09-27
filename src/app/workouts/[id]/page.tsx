@@ -43,7 +43,7 @@ const GroupDetails = async ({
     return (
         <main className="container mx-auto px-6 py-10">
 
-            <div className="grid grid-cols-2 gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-10">
 
                 <div>
                     <Image

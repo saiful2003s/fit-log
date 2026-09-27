@@ -51,7 +51,7 @@ const WorkoutActions = ({ group }: WorkoutActionsProps) => {
     };
 
     return (
-        <div className="mt-8 flex gap-3">
+        <div className="mt-8 flex gap-3 justify-center md:justify-start">
 
             <button
                 onClick={handleAddToPlan}
