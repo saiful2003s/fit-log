@@ -22,7 +22,7 @@ const Groups = async () => {
         <section id='Library' className="mx-6 my-8">
             <div className="container mx-auto">
 
-                <div className="mb-6">
+                <div className="mb-6 text-center md:text-left">
                     <h4 className="font-bold text-white text-[30px]">
                         THE LIBRARY
                     </h4>
@@ -32,7 +32,7 @@ const Groups = async () => {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
 
                     {groupsData.map((group: IgroupsCard) => (
                         <Link
