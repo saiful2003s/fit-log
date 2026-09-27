@@ -69,7 +69,7 @@ const MyPlan = () => {
                 </p>
             </div>
 
-            <div className="mb-8 text-center sm:text-left sm:flex sm:justify-between rounded-xl border border-gray-700 bg-base-300/40 p-5">
+            <div className="mb-8 text-center sm:text-left grid grid-cols-1 sm:grid-cols-3 gap-4 rounded-xl border border-gray-700 bg-base-300/40 p-5">
 
                 <div className="p-5">
                     <p className="text-sm text-gray-500">

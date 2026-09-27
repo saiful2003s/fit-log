@@ -33,8 +33,8 @@ const GroupDetails = async ({
     if (!group) {
         return (
             <div className="container mx-auto px-6 py-10">
-                <h1 className="text-2xl font-bold">
-                    details not found
+                <h1 className="text-2xl font-bold text-center">
+                    Page details not found
                 </h1>
             </div>
         );
